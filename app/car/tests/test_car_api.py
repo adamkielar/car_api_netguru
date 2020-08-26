@@ -32,6 +32,18 @@ class CarApiTest(TestCase):
             car_make='Fiat',
             car_model='Panda',
         )
+        self.car3 = Car.objects.create(
+            car_make='BMW',
+            car_model='M4',
+        )
+        self.rating1 = Rating.objects.create(
+            car=self.car1,
+            rating=5
+        )
+        self.rating2 = Rating.objects.create(
+            car=self.car1,
+            rating=5
+        )
 
     def test_retrieve_cars(self):
         """Test retrieving a list of cars"""
@@ -63,6 +75,15 @@ class CarApiTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_retrieve_cars_with_average_rating(self):
+        """Test retrieving a list of cars with average rating"""
+        response = self.client.get(CARS_URL)
+        cars = Car.objects.all()
+        CarListSerializer(cars, many=True)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]['average_rating'], 5.0)
+
     def test_rate_view(self):
         """Test viewing a car rate view"""
         response = self.client.get(CARS_RATING_URL)
@@ -72,11 +93,24 @@ class CarApiTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
+    def test_car_rate_create(self):
+        """Test updating car rating"""
+        car = self.car3
+
+        payload = {
+            'car': [car.id],
+            'rating': 5
+        }
+        self.client.post(CARS_RATING_URL, payload)
+
+        exists = Rating.objects.filter(
+            car=self.car1,
+            rating=payload['rating']
+        ).exists()
+        self.assertTrue(exists)
+
     def test_retrieve_popular_cars(self):
-        """Test retrieving a list of popular cars by number of rates"""
+        """Test retrieving a list of popular cars"""
         response = self.client.get(CARS_POPULAR_URL)
 
-        cars = Car.objects.all()
-        serializer = CarPopularSerializer(cars, many=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
