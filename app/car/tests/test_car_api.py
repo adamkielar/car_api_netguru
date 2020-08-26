@@ -10,7 +10,7 @@ from car.serializers import CarListSerializer, CarAddSerializer, \
     CarRatingSerializer, CarPopularSerializer
 
 CARS_URL = reverse('car:car-list')
-CARS_POPULAR_URL = reverse('car:popular-list')
+CARS_POPULAR_URL = reverse('car:rating-popular')
 CARS_RATING_URL = reverse('car:rate-list')
 
 

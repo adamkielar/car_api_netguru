@@ -1,7 +1,7 @@
 from django.db.models import Avg, Count
 from rest_framework import serializers
 
-from core.models import Car
+from core.models import Car, Rating
 
 
 class CarListSerializer(serializers.ModelSerializer):
@@ -61,11 +61,10 @@ class CarRatingSerializer(serializers.ModelSerializer):
     """Serializer to add ratings"""
 
     class Meta:
-        model = Car
+        model = Rating
         fields = (
             'id',
-            'car_make',
-            'car_model',
+            'car',
             'rating',
         )
-        read_only_fields = ('id', 'car_make', 'car_model')
+        read_only_fields = ('id', )

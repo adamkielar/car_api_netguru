@@ -1,8 +1,11 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import viewsets
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from core.models import Car
+from core.models import Car, Rating
 
 from car import serializers
 from car.car_extras import get_cars_from_url
@@ -48,3 +51,13 @@ class CarViewSet(viewsets.ModelViewSet):
             {'message': 'Car Make do not exists'},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+class CarRatingViewSet(viewsets.ModelViewSet):
+    """
+    Manage following endpoint:
+    POST /rate/
+    """
+    queryset = Rating.objects.all()
+    serializer_class = serializers.CarRatingSerializer
+
