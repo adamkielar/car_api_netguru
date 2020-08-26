@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.db import models
 
 
@@ -11,11 +12,16 @@ class Car(models.Model):
     def __str__(self):
         return f'{self.car_make} {self.car_model}'
 
+    @property
+    def rating_count(self):
+        return Car.objects.filter(id=self.id).aggregate(Count('ratings')).get(
+            'ratings__count')
+
 
 class Rating(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, related_name='ratings',
+                            on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.car.car_make} {self.car.car_model} rating {self.rating}'
-
