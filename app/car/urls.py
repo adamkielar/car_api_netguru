@@ -6,7 +6,7 @@ app_name = 'car'
 
 router = SimpleRouter()
 router.register('cars', views.CarViewSet)
-router.register('popular', views.CarPopularViewSet)
-router.register('rate', views.CarRatingViewSet)
+router.register('popular', views.CarPopularViewSet, basename='popular')
+router.register('rate', views.CarRatingViewSet, basename='rate')
 
 urlpatterns = router.urls

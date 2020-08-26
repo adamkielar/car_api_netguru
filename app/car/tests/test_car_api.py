@@ -10,7 +10,7 @@ from car.serializers import CarListSerializer, CarAddSerializer, \
     CarRatingSerializer, CarPopularSerializer
 
 CARS_URL = reverse('car:car-list')
-CARS_POPULAR_URL = reverse('car:rating-popular')
+CARS_POPULAR_URL = reverse('car:popular-list')
 CARS_RATING_URL = reverse('car:rate-list')
 
 
@@ -63,14 +63,13 @@ class CarApiTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_rate_view_detail(self):
-        """Test viewing a car rate detail"""
-        car = self.car1
-        url = detail_url(car.id)
+    def test_rate_view(self):
+        """Test viewing a car rate view"""
+        response = self.client.get(CARS_RATING_URL)
 
-        response = self.client.get(url)
-        serializer = CarRatingSerializer(car)
-
+        car_ratings = Rating.objects.all()
+        serializer = CarRatingSerializer(car_ratings, many=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
     def test_retrieve_popular_cars(self):
