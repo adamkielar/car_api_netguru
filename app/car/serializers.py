@@ -6,7 +6,9 @@ from core.models import Car
 
 class CarListSerializer(serializers.ModelSerializer):
     """Serializer for list of cars"""
-    ratings = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    ratings = serializers.HiddenField(
+        default=serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    )
     average_rating = serializers.SerializerMethodField()
 
     class Meta:
@@ -15,6 +17,7 @@ class CarListSerializer(serializers.ModelSerializer):
             'id',
             'car_make',
             'car_model',
+            'ratings',
             'average_rating'
         )
         read_only_fields = ('id',)

@@ -13,7 +13,8 @@ class Car(models.Model):
 
 
 class Rating(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, related_name='ratings',
+                            on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(blank=True, null=True)
 
     def __str__(self):
