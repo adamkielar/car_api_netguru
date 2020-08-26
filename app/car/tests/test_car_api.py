@@ -6,8 +6,7 @@ from rest_framework.test import APIClient
 
 from core.models import Car, Rating
 
-from car.serializers import CarListSerializer, CarAddSerializer, \
-    CarRatingSerializer, CarPopularSerializer
+from car.serializers import CarListSerializer, CarRatingSerializer
 
 CARS_URL = reverse('car:car-list')
 CARS_POPULAR_URL = reverse('car:popular-list')

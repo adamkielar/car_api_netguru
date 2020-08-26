@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count
+from django.db.models import Avg
 from rest_framework import serializers
 
 from core.models import Car, Rating

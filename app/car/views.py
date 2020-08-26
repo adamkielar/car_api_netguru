@@ -1,4 +1,4 @@
-from django.db.models import Count, F
+from django.db.models import Count
 
 from rest_framework import viewsets
 from rest_framework import status
@@ -74,4 +74,3 @@ class CarPopularViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         return queryset.annotate(car_rating_count=Count('ratings')).order_by(
             '-car_rating_count')
-
