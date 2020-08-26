@@ -6,12 +6,17 @@ from core import models
 
 class ModelTest(TestCase):
 
+    def setUp(self):
+        self.car1 = models.Car.objects.create(
+            car_make='Nissan',
+            car_model='GT-R',
+        )
+
     def test_car_str(self):
         """Test car object string representation"""
         car = models.Car.objects.create(
             car_make='Audi',
             car_model='RS6',
-            rating=5
         )
 
         self.assertEqual(
@@ -31,3 +36,16 @@ class ModelTest(TestCase):
                 car_make='Skoda',
                 car_model='Kodiaq',
             )
+
+    def test_car_rating_str(self):
+        """Test car rating string representation"""
+        car_rating = models.Rating.objects.create(
+            car=self.car1,
+            rating=5
+        )
+
+        self.assertEqual(
+            str(car_rating),
+            f'{self.car1.car_make} {self.car1.car_model} '
+            f'rating {car_rating.rating}'
+        )
