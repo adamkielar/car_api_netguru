@@ -54,7 +54,7 @@ class CarPopularSerializer(serializers.ModelSerializer):
             'car_model',
             'rating_count',
         )
-        read_only_fields = ('id',)
+        read_only_fields = ('id', )
 
 
 class CarRatingSerializer(serializers.ModelSerializer):

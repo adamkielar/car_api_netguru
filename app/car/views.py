@@ -58,3 +58,13 @@ class CarRatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = serializers.CarRatingSerializer
 
+
+class CarPopularViewSet(viewsets.ModelViewSet):
+    """
+    Manage following endpoint:
+    GET /popular
+    """
+    allowed_methods = ['GET']
+    queryset = Car.objects.all()
+    serializer_class = serializers.CarPopularSerializer
+
