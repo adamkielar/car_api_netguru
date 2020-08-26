@@ -18,4 +18,3 @@ class Rating(models.Model):
 
     def __str__(self):
         return f'{self.car.car_make} {self.car.car_model} rating {self.rating}'
-
