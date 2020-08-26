@@ -1,4 +1,3 @@
-from django.db.models import Count
 from django.db import models
 
 
@@ -11,11 +10,6 @@ class Car(models.Model):
 
     def __str__(self):
         return f'{self.car_make} {self.car_model}'
-
-    @property
-    def rating_count(self):
-        return Car.objects.filter(id=self.id).aggregate(Count('ratings')).get(
-            'ratings__count')
 
 
 class Rating(models.Model):

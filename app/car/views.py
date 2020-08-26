@@ -1,3 +1,5 @@
+from django.db.models import Count, F
+
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
@@ -68,3 +70,7 @@ class CarPopularViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = serializers.CarPopularSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset
+        return queryset.annotate(rating_count=Count('ratings')).order_by(
+            '-rating_count')
