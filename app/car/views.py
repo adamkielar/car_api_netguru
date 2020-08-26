@@ -72,5 +72,6 @@ class CarPopularViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        return queryset.annotate(rating_count=Count('ratings')).order_by(
-            '-rating_count')
+        return queryset.annotate(car_rating_count=Count('ratings')).order_by(
+            '-car_rating_count')
+
