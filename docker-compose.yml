@@ -15,7 +15,7 @@ services:
       - DJANGO_SECRET_KEY=changeme
       - ALLOWED_HOSTS=0.0.0.0
       - DB_HOST=db
-      - DB_NAME=bookapi
+      - DB_NAME=carapi
       - DB_USER=postgres
       - DB_PASS=secretpassword
       - DEBUG=1
@@ -25,7 +25,7 @@ services:
   db:
     image: postgres:11.9-alpine
     environment:
-      - POSTGRES_DB=bookapi
+      - POSTGRES_DB=carapi
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secretpassword
     volumes:

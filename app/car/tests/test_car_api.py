@@ -13,11 +13,6 @@ CARS_POPULAR_URL = reverse('car:popular-list')
 CARS_RATING_URL = reverse('car:rate-list')
 
 
-def detail_url(car_id):
-    """Return car detail URL"""
-    return reverse('car:car-detail', args=[car_id])
-
-
 class CarApiTest(TestCase):
     """Test car api"""
 
